@@ -20,13 +20,6 @@ jobs:
         git remote add upstream https://github.com/focus-creative-games/il2cpp_plus.git  # 替换为上游仓库的URL
         git fetch upstream
 
-    - name: Sync branches
-      run: |
-        for branch in $(git branch -r | grep upstream/ | sed 's/upstream\///'); do
-          git checkout $branch || git checkout -b $branch upstream/$branch
-        done
-        git remote prune origin
-
     - name: Sync tags
       run: |
         git fetch upstream --tags
