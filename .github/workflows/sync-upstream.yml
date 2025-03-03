@@ -22,9 +22,8 @@ jobs:
 
     - name: Sync branches
       run: |
-        git checkout -b upstream-sync
-        git branch -r | grep upstream/ | while read line; do
-          git checkout --track "$line" || git checkout "$line"
+        for branch in $(git branch -r | grep upstream/ | sed 's/upstream\///'); do
+          git checkout $branch || git checkout -b $branch upstream/$branch
         done
         git remote prune origin
 
